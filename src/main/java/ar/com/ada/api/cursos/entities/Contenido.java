@@ -91,5 +91,6 @@ public class Contenido {
 
     public void setClase(Clase clase) {
         this.clase = clase;
+        this.clase.getContenidos().add(this);
     }
 }

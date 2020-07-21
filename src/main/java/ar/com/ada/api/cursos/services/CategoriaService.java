@@ -37,4 +37,12 @@ public class CategoriaService {
             return null;
 
     }
+
+	public List<Categoria> buscarTodasOrdenadasPorNombre(String nombre) {
+		return repoCategoria.findAllByNombre(nombre);
+	}
+
+	public List<Categoria> buscarTodasPorNombre(String nombre) {
+		return repoCategoria.findByNombre(nombre);
+	}
 }

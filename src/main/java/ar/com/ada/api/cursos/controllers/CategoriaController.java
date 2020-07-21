@@ -1,5 +1,7 @@
 package ar.com.ada.api.cursos.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -32,6 +34,20 @@ public class CategoriaController {
         // Cuando se crea, generalmetnte para los puristas, se usa el
         // CreatedAtAction(201)
         return ResponseEntity.ok(r);
+
+    }
+
+    @GetMapping("/categorias")
+    public List<Categoria> getCategorias(@RequestParam(value = "nombre", required = false) String nombre) {
+        List<Categoria> c;
+
+        if (nombre == null) {
+            c = categoriaService.buscarTodasOrdenadasPorNombre();
+        } else {
+            c = categoriaService.buscarTodasPorNombre();
+        }
+
+        return c;
 
     }
 }

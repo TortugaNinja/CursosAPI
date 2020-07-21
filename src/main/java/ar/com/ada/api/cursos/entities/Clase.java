@@ -47,6 +47,7 @@ public class Clase {
 
     public void setCurso(Curso curso) {
         this.curso = curso;
+        this.curso.getClases().add(this);
     }
 
     public String getTitulo() {
