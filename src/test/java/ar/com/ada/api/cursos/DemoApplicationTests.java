@@ -1,6 +1,8 @@
 package ar.com.ada.api.cursos;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
+
+import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +31,39 @@ class DemoApplicationTests {
 		// 0 si a == 1
 		// 1 si a > parametro
 		assertTrue(categoria.getCategoriaId().compareTo(0) == 1);
+
+		Integer nuevaCategoriaId = categoria.getCategoriaId();
+
+		//Busca la categoria que tiene el ID en la base de datos
+		//particularmente el findById del repo: devuelve un Optional
+		//Optional se debe checkear si el valor existe o no.
+		Optional<Categoria> catDesdeDBResultado = repoCategoria.findById(nuevaCategoriaId);
+
+		assertTrue(catDesdeDBResultado.isPresent());
+
+		Categoria categoriaDesdeDB = catDesdeDBResultado.get();
+
+		assertEquals("Matematicas", categoriaDesdeDB.getNombre());
+
+		assertEquals("vemos algebra", categoriaDesdeDB.getDescripcion());
 	}
+
+	void tituloTestInicio(String titulo) {
+		System.out.println("*************************************");
+		System.out.println("*************************************");
+		System.out.println("INICIO TEST: " + titulo);
+		System.out.println("*************************************");
+		System.out.println("*************************************");
+	}
+
+	void tituloTestFin(String titulo) {
+		System.out.println("*************************************");
+		System.out.println("*************************************");
+		System.out.println("FIN TEST OK:  " + titulo);
+		System.out.println("*************************************");
+		System.out.println("*************************************");
+	}
+
+
 
 }
