@@ -38,8 +38,8 @@ public class CategoriaService {
 
     }
 
-	public List<Categoria> buscarTodasOrdenadasPorNombre(String nombre) {
-		return repoCategoria.findAllByNombre(nombre);
+	public List<Categoria> buscarTodasOrdenadasPorNombre() {
+		return repoCategoria.findAllOrderByNombre();
 	}
 
 	public List<Categoria> buscarTodasPorNombre(String nombre) {

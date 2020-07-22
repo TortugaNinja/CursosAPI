@@ -10,7 +10,7 @@ import ar.com.ada.api.cursos.entities.Categoria;
 public interface CategoriaRepository extends JpaRepository<Categoria, Integer> {
 
     @Query("select c from Categoria c order by nombre")
-	List<Categoria> findAllByNombre(String nombre);
+	List<Categoria> findAllOrderByNombre();
 
 
 	List<Categoria> findByNombre(String nombre);

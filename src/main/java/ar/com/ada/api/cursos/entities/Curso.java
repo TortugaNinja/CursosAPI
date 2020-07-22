@@ -85,4 +85,19 @@ public class Curso {
         this.inscripciones = inscripciones;
     }
 
+    public void asignarDocente(Docente docente) {
+        this.docentes.add(docente);
+        docente.getCursosQueDicta().add(this);
+    }
+
+    public void asignarEstudiante(Estudiante estudiante) {
+        this.estudiantes.add(estudiante);
+        estudiante.getCursosQueAsiste().add(this);
+    }
+
+    public void agregarCategoria(Categoria categoria) {
+        this.categorias.add(categoria);
+        categoria.getCursos().add(this);
+    }
+
 }

@@ -44,7 +44,7 @@ public class CategoriaController {
         if (nombre == null) {
             c = categoriaService.buscarTodasOrdenadasPorNombre();
         } else {
-            c = categoriaService.buscarTodasPorNombre();
+            c = categoriaService.buscarTodasPorNombre(nombre);
         }
 
         return c;
