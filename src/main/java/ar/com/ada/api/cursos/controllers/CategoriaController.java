@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import ar.com.ada.api.cursos.entities.*;
+import ar.com.ada.api.cursos.models.request.CategoriaRequest;
 import ar.com.ada.api.cursos.models.response.GenericResponse;
 import ar.com.ada.api.cursos.services.*;
 
@@ -20,10 +21,10 @@ public class CategoriaController {
 
     // Post: que recibios algo, que nos permite instanciar una Categoria y ponerle
     // datos.
-    @PostMapping("/categorias")
-    ResponseEntity<GenericResponse> crearCategoria(@RequestBody Categoria categoria) {
+    @PostMapping("/api/categorias")
+    public ResponseEntity<GenericResponse> crearCategoria(@RequestBody CategoriaRequest categoriaR) {
 
-        categoriaService.crearCategoria(categoria);
+        Categoria categoria = categoriaService.crearCategoria(categoriaR.nombre, categoriaR.descripcion);
 
         GenericResponse r = new GenericResponse();
         r.isOk = true;
@@ -37,7 +38,7 @@ public class CategoriaController {
 
     }
 
-    @GetMapping("/categorias")
+    @GetMapping("/api/categorias")
     public List<Categoria> getCategorias(@RequestParam(value = "nombre", required = false) String nombre) {
         List<Categoria> c;
 

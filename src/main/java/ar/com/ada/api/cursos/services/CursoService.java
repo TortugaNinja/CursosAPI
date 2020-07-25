@@ -1,5 +1,7 @@
 package ar.com.ada.api.cursos.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,10 +24,11 @@ public class CursoService {
         return true;
     }
 
-    public Curso crearCurso(String nombre, Integer categoriaId) {
+    public Curso crearCurso(String nombre, Integer categoriaId, Integer duracionHoras) {
         Curso curso = new Curso();
         curso.setNombre(nombre);
         curso.agregarCategoria(categoriaService.buscarPorId(categoriaId));
+        curso.setDuracionHoras(duracionHoras);
         // llamo al metodo creado en la linea 19
         boolean cursoCreado = crearCurso(curso);
         if (cursoCreado)
@@ -37,6 +40,12 @@ public class CursoService {
         // return null;
         // cursoRepository.save(curso);
         // return curso;
+
+    }
+
+    public List<Curso> buscarListaCursos() {
+
+        return cursoRepository.findAllOrderByNombre();
 
     }
 }

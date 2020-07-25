@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
 
 import ar.com.ada.api.cursos.entities.*;
+import ar.com.ada.api.cursos.models.request.CategoriaRequest;
 import ar.com.ada.api.cursos.repositories.CategoriaRepository;
 import java.util.*;
 
@@ -13,8 +14,8 @@ public class CategoriaService {
     @Autowired
     CategoriaRepository repoCategoria;
 
-    public void crearCategoria(Categoria categoria) {
-        repoCategoria.save(categoria);
+    public Categoria crearCategoria(Categoria categoria) {
+        return repoCategoria.save(categoria);
     }
 
     public Categoria crearCategoria(String nombre, String descripcion) {

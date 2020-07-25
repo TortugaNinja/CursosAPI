@@ -1,11 +1,16 @@
 package ar.com.ada.api.cursos.entities;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 @Entity
 @Table(name = "categoria")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "categoriaId")
 public class Categoria {
     @Id
     @Column(name = "categoria_id")
@@ -15,7 +20,7 @@ public class Categoria {
     private String descripcion;
     @ManyToMany
     @JoinTable(name = "curso_x_categoria", joinColumns = @JoinColumn(name = "categoria_id"), inverseJoinColumns = @JoinColumn(name = "curso_id"))
-    private List<Curso> cursos;
+    private List<Curso> cursos = new ArrayList<>();
 
     public Integer getCategoriaId() {
         return categoriaId;

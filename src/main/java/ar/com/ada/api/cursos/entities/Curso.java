@@ -1,33 +1,40 @@
 package ar.com.ada.api.cursos.entities;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
 @Entity
 @Table(name = "curso")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "cursoId")
 public class Curso {
     @Id
     @Column(name = "curso_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer cursoId;
     private String nombre;
+    @Column(name = "duracion_horas")
+    private Integer duracionHoras;
     // cursosQueDicta para diferenciar los cursos de docente de los de estudiante
     @ManyToMany(mappedBy = "cursosQueDicta")
-    private List<Docente> docentes;
+    private List<Docente> docentes = new ArrayList<>();
     @ManyToMany(mappedBy = "cursosQueAsiste")
-    private List<Estudiante> estudiantes;
+    private List<Estudiante> estudiantes = new ArrayList<>();
     @OneToMany(mappedBy = "curso", cascade = CascadeType.ALL)
     @LazyCollection(LazyCollectionOption.FALSE)
-    private List<Clase> clases;
+    private List<Clase> clases = new ArrayList<>();
     @ManyToMany(mappedBy = "cursos")
-    private List<Categoria> categorias;
+    private List<Categoria> categorias = new ArrayList<>();
     @OneToMany(mappedBy = "curso", cascade = CascadeType.ALL)
     @LazyCollection(LazyCollectionOption.FALSE)
-    private List<Inscripcion> inscripciones;
+    private List<Inscripcion> inscripciones = new ArrayList<>();
 
     public Integer getCursoId() {
         return cursoId;
@@ -99,5 +106,14 @@ public class Curso {
         this.categorias.add(categoria);
         categoria.getCursos().add(this);
     }
+
+    public Integer getDuracionHoras() {
+        return duracionHoras;
+    }
+
+    public void setDuracionHoras(Integer duracionHoras) {
+        this.duracionHoras = duracionHoras;
+    }
+
 
 }
