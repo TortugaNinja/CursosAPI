@@ -39,7 +39,7 @@ public class CategoriaController {
     }
 
     @GetMapping("/api/categorias")
-    public List<Categoria> getCategorias(@RequestParam(value = "nombre", required = false) String nombre) {
+    public ResponseEntity<List<Categoria>> getCategorias(@RequestParam(value = "nombre", required = false) String nombre) {
         List<Categoria> c;
 
         if (nombre == null) {
@@ -48,7 +48,7 @@ public class CategoriaController {
             c = categoriaService.buscarTodasPorNombre(nombre);
         }
 
-        return c;
+        return ResponseEntity.ok(c);
 
     }
 }
