@@ -5,7 +5,14 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 
-import ar.com.ada.api.cursos.entities.Pais.*;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.util.Converter;
+
+import ar.com.ada.api.cursos.entities.Pais.PaisEnum;
+import ar.com.ada.api.cursos.entities.Pais.TipoDocuEnum;
+import ch.qos.logback.core.joran.util.StringToObjectConverter;
 
 // anotación de la clase padre 
 @MappedSuperclass
@@ -17,6 +24,7 @@ public class Persona {
     private Integer tipoDocumentoId;
     private String documento;
     @Column(name = "fecha_nacimiento")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private Date fechaNacimiento;
 
     public String getNombre() {
@@ -56,7 +64,11 @@ public class Persona {
     }
 
     public void setFechaNacimiento(Date fechaNacimiento) {
-        this.fechaNacimiento = fechaNacimiento;
+    
+       fechaNacimiento = new Date();
+       this.fechaNacimiento = fechaNacimiento;
+        
+        
     }
 
 }

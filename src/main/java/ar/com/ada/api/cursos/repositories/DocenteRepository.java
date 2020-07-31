@@ -14,12 +14,13 @@ import ar.com.ada.api.cursos.entities.Pais.TipoDocuEnum;
 @Repository
 public interface DocenteRepository extends JpaRepository<Docente, Integer> {
     
-     // jpql query, se está referenciando al obj docente, conviene para prevenir sql
+    // jpql query, se está referenciando al obj docente, conviene para prevenir sql
     // injection
-    @Query("select CASE WHEN  count(d) > 0 THEN true ELSE false END from Docente d where d.paisId=:pais and d.tipoDocumentoId=:tipoDocuEnum and d.documento=:documento")
-    boolean existsDocente(Integer pais, Integer tipoDocuEnum, String documento);
+    // todo lo que tiene =: ANTES es un PARAMETRO. Por ejemplo d.paisId=:paisId --> DONDE =:paisId ES PARAMETRO
+    @Query("select CASE WHEN count(d) > 0 THEN true ELSE false END from Docente d where d.paisId=:paisId and d.tipoDocumentoId=:tipoDocumentoId and d.documento=:documento")
+    boolean existsDocente(Integer paisId, Integer tipoDocumentoId, String documento);
 
-    @Query("select d from Docente d where d.pais_id=:paisId and d.tipo_documento_id=:tipoDocuEnum and d.documento=:documento")
+    @Query("select d from Docente d where d.paisId=:pais and d.tipoDocumentoId=:tipoDocuEnum and d.documento=:documento")
     Docente buscarDocentePorDocu(Integer pais, Integer tipoDocuEnum, String documento);
 
     @Query("select d from Docente d order by nombre")

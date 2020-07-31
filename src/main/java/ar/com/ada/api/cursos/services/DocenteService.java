@@ -1,9 +1,14 @@
 package ar.com.ada.api.cursos.services;
 
+import java.text.DateFormat;
+import java.text.Format;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.datetime.DateFormatter;
 import org.springframework.stereotype.Service;
 
 import ar.com.ada.api.cursos.entities.Docente;
@@ -16,22 +21,27 @@ public class DocenteService {
 
     @Autowired
     DocenteRepository docenteRepo;
+
     public boolean crearDocente(Docente docente) {
-        if (docenteRepo.existsDocente(docente.getPaisId(), docente.getTipoDocumentoId(), docente.getDocumento()))
+        if (docenteRepo.existsDocente(docente.getPaisId().getValue(), docente.getTipoDocumentoId().getValue(), docente.getDocumento())) {
             return false;
-        docenteRepo.save(docente);
-        return true;
+        } else {
+            docenteRepo.save(docente);
+            return true;
+        }
     }
 
-    public Docente crearDocente(String nombre, PaisEnum paisEnum, TipoDocuEnum TipoDocuEnum, String documento,
+    public Docente crearDocente(String nombre, PaisEnum paisId, TipoDocuEnum tipoDocumentoId, String documento,
             Date fechaNacimiento) {
+        
         Docente docente = new Docente();
         docente.setNombre(nombre);
-        docente.setPaisId(paisEnum);
-        docente.setTipoDocumentoId(TipoDocuEnum);
+        docente.setPaisId(paisId);
+        docente.setTipoDocumentoId(tipoDocumentoId);
         docente.setDocumento(documento);
         docente.setFechaNacimiento(fechaNacimiento);
-        // llamo al metodo creado en la linea 19
+
+        // llamo al metodo creado en la linea 25
         boolean docenteCreado = crearDocente(docente);
         if (docenteCreado)
             return docente;

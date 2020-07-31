@@ -2,7 +2,8 @@ package ar.com.ada.api.cursos.entities;
 
 public class Pais {
     public enum PaisEnum {
-        ARGENTINA(32), VENEZUELA(840), ESTADOS_UNIDOS(862);
+
+        ARGENTINA(32), VENEZUELA(862), USA(840);
 
         private final Integer value;
 
@@ -15,7 +16,7 @@ public class Pais {
             return value;
         }
 
-        public static PaisEnum parse(Integer id) {
+        /**public static PaisEnum parse(Integer id) {
             PaisEnum status = null; // Default
             for (PaisEnum item : PaisEnum.values()) {
                 if (item.getValue().equals(id)) {
@@ -23,6 +24,19 @@ public class Pais {
                     break;
                 }
             }
+            return status;
+        }*/
+
+        public static PaisEnum parse(Integer id) {
+            PaisEnum status = null;   // Default
+            for (PaisEnum itemPais : PaisEnum.values()) {
+                if (itemPais.getValue().equals(id)) {
+                    status = itemPais;
+                    break;
+                }
+            }
+            
+            
             return status;
         }
     }
