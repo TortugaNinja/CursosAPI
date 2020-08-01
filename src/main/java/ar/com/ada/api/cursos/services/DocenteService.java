@@ -6,6 +6,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.datetime.DateFormatter;
@@ -58,4 +59,27 @@ public class DocenteService {
     public List<Docente> obtenerListaDocentes() {
         return docenteRepo.findAll();
     }
+
+    public Docente buscarPorId(Integer id) {
+        Optional<Docente> opDocente = docenteRepo.findById(id);
+
+        if (opDocente.isPresent())
+            return opDocente.get();
+        else
+            return null;
+
+    }
+
+    public boolean docenteExiste(Docente docente) {
+
+        if (docenteRepo.existsDocente(docente.getPaisId().getValue(), docente.getTipoDocumentoId().getValue(),
+                docente.getDocumento()))
+            return true;
+        else
+            return false;
+
+    }
+
+
+
 }

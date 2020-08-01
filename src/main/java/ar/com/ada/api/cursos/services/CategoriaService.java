@@ -45,5 +45,14 @@ public class CategoriaService {
 
 	public List<Categoria> buscarTodasPorNombre(String nombre) {
 		return repoCategoria.findByNombre(nombre);
-	}
+    }
+    
+    public List<Categoria> listarTodas() {
+        return repoCategoria.findAll();
+    }
+
+    public Categoria actualizarCategoria(Categoria categoria) {
+        return repoCategoria.save(categoria);
+    }
+
 }
