@@ -22,9 +22,11 @@ public class Inscripcion {
     private EstadoInscripcionEnum estadoInscripcionEnum;
 
     public enum EstadoInscripcionEnum {
-        DOCENTE(1), ESTUDIANTE(2), STAFF(3);
+
+        INACTIVA(0), ACTIVA(1);
 
         private final Integer value;
+     
 
         // NOTE: Enum constructor tiene que estar en privado
         private EstadoInscripcionEnum(Integer value) {
@@ -37,12 +39,13 @@ public class Inscripcion {
 
         public static EstadoInscripcionEnum parse(Integer id) {
             EstadoInscripcionEnum status = null; // Default
-            for (EstadoInscripcionEnum item : EstadoInscripcionEnum.values()) {
-                if (item.getValue().equals(id)) {
-                    status = item;
+            for (EstadoInscripcionEnum itemEstado : EstadoInscripcionEnum.values()) {
+                if (itemEstado.getValue().equals(id)) {
+                    status = itemEstado;
                     break;
                 }
             }
+
             return status;
         }
     }
@@ -79,5 +82,6 @@ public class Inscripcion {
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
         this.usuario.getInscripciones().add(this);
-    }
+        this.estadoInscripcionEnum = EstadoInscripcionEnum.ACTIVA;
+    }    
 }

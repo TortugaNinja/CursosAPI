@@ -100,6 +100,8 @@ public class Curso {
     public void asignarEstudiante(Estudiante estudiante) {
         this.estudiantes.add(estudiante);
         estudiante.getCursosQueAsiste().add(this);
+        
+        
     }
 
     public void agregarCategoria(Categoria categoria) {
