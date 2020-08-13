@@ -37,7 +37,7 @@ public class DocenteService {
         
         Docente docente = new Docente();
         docente.setNombre(nombre);
-        docente.setPaisId(paisId);
+        docente.setPaisId(paisId.getValue());
         docente.setTipoDocumentoId(tipoDocumentoId);
         docente.setDocumento(documento);
         docente.setFechaNacimiento(fechaNacimiento);

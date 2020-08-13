@@ -15,7 +15,7 @@ public class Docente extends Persona {
     @ManyToMany
     @JoinTable(name = "docente_x_curso", joinColumns = @JoinColumn(name = "docente_id"), inverseJoinColumns = @JoinColumn(name = "curso_id"))
     private List<Curso> cursosQueDicta = new ArrayList<>();
-    @OneToOne(mappedBy = "docente")
+    @OneToOne(mappedBy = "docente", cascade = CascadeType.ALL)
     private Usuario usuario;
 
     public Integer getDocenteId() {
@@ -40,6 +40,7 @@ public class Docente extends Persona {
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
+        this.usuario.setDocente(this);
     }
 
 }

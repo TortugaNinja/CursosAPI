@@ -19,7 +19,7 @@ public class Inscripcion {
     @JoinColumn(name = "usuario_id", referencedColumnName = "usuario_id")
     private Usuario usuario;
     @Column(name = "estado_inscripcion_id")
-    private EstadoInscripcionEnum estadoInscripcionEnum;
+    private Integer estadoInscripcionEnum;
 
     public enum EstadoInscripcionEnum {
 
@@ -65,6 +65,7 @@ public class Inscripcion {
     public void setCurso(Curso curso) {
         this.curso = curso;
         this.curso.getInscripciones().add(this);
+        this.setEstadoInscripcionEnum(EstadoInscripcionEnum.ACTIVA);
     }
 
     public Date getFecha() {
@@ -82,6 +83,13 @@ public class Inscripcion {
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
         this.usuario.getInscripciones().add(this);
-        this.estadoInscripcionEnum = EstadoInscripcionEnum.ACTIVA;
-    }    
+    }
+
+    public EstadoInscripcionEnum getEstadoInscripcionEnum() {
+        return EstadoInscripcionEnum.parse(this.estadoInscripcionEnum);
+    }
+
+    public void setEstadoInscripcionEnum(EstadoInscripcionEnum estadoInscripcionEnum) {
+        this.estadoInscripcionEnum = estadoInscripcionEnum.getValue();
+    }
 }
