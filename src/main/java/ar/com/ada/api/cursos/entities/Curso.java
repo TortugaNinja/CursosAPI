@@ -9,6 +9,8 @@ import javax.persistence.*;
 //import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 //import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
@@ -25,8 +27,10 @@ public class Curso {
     private Integer duracionHoras;
     // cursosQueDicta para diferenciar los cursos de docente de los de estudiante
     @ManyToMany(mappedBy = "cursosQueDicta")
+    @JsonIgnore
     private List<Docente> docentes = new ArrayList<>();
     @ManyToMany(mappedBy = "cursosQueAsiste")
+    @JsonIgnore
     private List<Estudiante> estudiantes = new ArrayList<>();
     @OneToMany(mappedBy = "curso", cascade = CascadeType.ALL)
     @LazyCollection(LazyCollectionOption.FALSE)
@@ -35,6 +39,7 @@ public class Curso {
     private List<Categoria> categorias = new ArrayList<>();
     @OneToMany(mappedBy = "curso", cascade = CascadeType.ALL)
     @LazyCollection(LazyCollectionOption.FALSE)
+    @JsonIgnore
     private List<Inscripcion> inscripciones = new ArrayList<>();
 
     public Integer getCursoId() {

@@ -25,5 +25,10 @@ public interface DocenteRepository extends JpaRepository<Docente, Integer> {
 
     @Query("select d from Docente d order by nombre")
     List<Docente> obtenerListaDocentes();
+
+    @Query("select d from Docente d order by nombre")
+	List<Docente> findAllOrderByNombre();
+
+	List<Docente> findByNombre(String nombre);
     
 }

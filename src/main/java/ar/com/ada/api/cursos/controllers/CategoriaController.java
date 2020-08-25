@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import ar.com.ada.api.cursos.entities.*;
@@ -21,7 +22,9 @@ public class CategoriaController {
 
     // Post: que recibios algo, que nos permite instanciar una Categoria y ponerle
     // datos.
+
     @PostMapping("/api/categorias")
+    @PreAuthorize("hasAuthority('CLAIM_userType_STAFF')")
     public ResponseEntity<GenericResponse> crearCategoria(@RequestBody CategoriaRequest categoriaR) {
 
         Categoria categoria = categoriaService.crearCategoria(categoriaR.nombre, categoriaR.descripcion);
@@ -51,4 +54,5 @@ public class CategoriaController {
         return ResponseEntity.ok(c);
 
     }
+
 }

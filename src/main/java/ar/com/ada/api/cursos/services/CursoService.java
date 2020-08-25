@@ -125,7 +125,7 @@ public class CursoService {
         // error)
         for (Docente d : curso.getDocentes()) {
             if (d.getDocenteId().equals(docenteId))
-                return false; // Si lo encuentra no hay que hacer nadas
+                return false; // Si lo encuentra no hay que hacer nada
             // Hay que terminar de recorrer.
         }
 

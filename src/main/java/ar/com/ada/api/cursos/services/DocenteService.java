@@ -12,13 +12,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.datetime.DateFormatter;
 import org.springframework.stereotype.Service;
 
+import ar.com.ada.api.cursos.entities.Curso;
 import ar.com.ada.api.cursos.entities.Docente;
+import ar.com.ada.api.cursos.entities.Inscripcion;
 import ar.com.ada.api.cursos.entities.Pais.PaisEnum;
 import ar.com.ada.api.cursos.entities.Pais.TipoDocuEnum;
 import ar.com.ada.api.cursos.repositories.DocenteRepository;
 
 @Service
 public class DocenteService {
+
+    @Autowired
+    CursoService cursoService;
 
     @Autowired
     DocenteRepository docenteRepo;
@@ -56,6 +61,14 @@ public class DocenteService {
 
     }
 
+    public List<Docente> buscarTodosOrdenadosPorNombre() {
+		return docenteRepo.findAllOrderByNombre();
+	}
+
+	public List<Docente> buscarTodosPorNombre(String nombre) {
+		return docenteRepo.findByNombre(nombre);
+    }
+
     public List<Docente> obtenerListaDocentes() {
         return docenteRepo.findAll();
     }
@@ -80,6 +93,28 @@ public class DocenteService {
 
     }
 
+    /**public Inscripcion inscribir(Integer docenteId, Integer cursoId) {
+        // TODO:buscar el estudiante por Id
+        // buscar el curso por Id;
+        // Crear la inscripcion(aprobada por defecto)
+        // Asignar la inscripcion al Usuario del Estudiante
+        // Agregar el Estudiante a la Lista de Estudiantes que tiene Curso
+        
+        Docente docente = buscarPorId(docenteId);
+        Curso curso = cursoService.buscarPorId(cursoId);
+        curso.asignarDocente(docente);
+        Inscripcion inscripcion = new Inscripcion();
+        inscripcion.setFecha(new Date());
+        inscripcion.setCurso(curso);
+        inscripcion.setUsuario(docente.getUsuario());
+        docenteRepo.save(docente);
+        return inscripcion;
+
+        
+
+        
+    }
+    */
 
 
 }

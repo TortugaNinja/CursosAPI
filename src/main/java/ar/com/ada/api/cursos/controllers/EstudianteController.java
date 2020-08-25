@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import ar.com.ada.api.cursos.entities.*;
@@ -28,6 +29,7 @@ public class EstudianteController {
     // Post: que recibimos algo, que nos permite instanciar una Categoria y ponerle
     // datos.
     @PostMapping("/api/estudiantes")
+    @PreAuthorize("hasAuthority('CLAIM_userType_STAFF')")
     public ResponseEntity<GenericResponse> crearEstudiante(@RequestBody Estudiante estudiante) {
 
         if (estudianteService.estudianteExiste(estudiante)) {
@@ -53,6 +55,7 @@ public class EstudianteController {
     }
 
     @GetMapping("/api/estudiantes/{id}")
+    @PreAuthorize("hasAuthority('CLAIM_userType_STAFF') or hasAuthority('CLAIM_userType_ESTUDIANTE') and hasAuthority('CLAIM_entityId_'+#id)")
     ResponseEntity<Estudiante> buscarPorIdEstudiante(@PathVariable Integer id) {
         Estudiante estudiante = estudianteService.buscarPorId(id);
         if (estudiante == null)
@@ -70,6 +73,7 @@ public class EstudianteController {
     // }
 
     @GetMapping("/api/estudiantes")
+    @PreAuthorize("hasAuthority('CLAIM_userType_STAFF')")
     ResponseEntity<List<Estudiante>> listarEstudiantes() {
         List<Estudiante> listaEstudiantes = estudianteService.listaEstudiantes();
         return ResponseEntity.ok(listaEstudiantes);
@@ -85,6 +89,7 @@ public class EstudianteController {
      * este caso es un metodo separado
      */
     @GetMapping("/api/estudiantes/{id}/cursos")
+    @PreAuthorize("hasAuthority('CLAIM_userType_STAFF') or hasAuthority('CLAIM_userType_ESTUDIANTE') and hasAuthority('CLAIM_entityId_'+#id)")
     public ResponseEntity<List<Curso>> listaCursos(@PathVariable Integer id,
             @RequestParam(value = "disponibles", required = false) boolean disponibles) {
         List<Curso> listaCursos = new ArrayList<>();
@@ -104,6 +109,7 @@ public class EstudianteController {
     // se apruebe de una)!
 
     @PostMapping("/api/estudiantes/{id}/inscripciones")
+    @PreAuthorize("hasAuthority('CLAIM_userType_STAFF') or hasAuthority('CLAIM_userType_ESTUDIANTE') and hasAuthority('CLAIM_entityId_'+#id)")
     public ResponseEntity<GenericResponse> inscribir(@PathVariable Integer id, @RequestBody InscripcionRequest iR) {
 
         Inscripcion inscripcionCreada = estudianteService.inscribir(id, iR.cursoId);
